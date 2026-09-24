@@ -1,0 +1,3 @@
+Le dossier codesA correspond aux programmes A, c'est-à-dire ceux utilisant l'itéraiton X_{k+1}=FX_k+G
+Le dossier codesB correspond aux premiers programmes réalisés, sans souci d'optimisation.
+Le test code python correspond au programme calculant les temps de calculs des deux méthodes.

@@ -1,0 +1,21 @@
+#---------compilateur et options------------------
+
+FC = gfortran
+OPT = -g
+
+#---------cibles------------------
+
+# Programme principal Gauss-Seidel
+GS : GS.o
+	$(FC) $(OPT) GS.o -o GS
+
+#---------objets------------------
+
+GS.o : GS.f90
+	$(FC) $(OPT) -c GS.f90
+
+#---------outils------------------
+
+clean :
+	rm -f GS *.o *.mod
+

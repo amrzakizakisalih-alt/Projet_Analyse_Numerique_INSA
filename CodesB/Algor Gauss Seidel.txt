@@ -1,0 +1,217 @@
+//algorithme de la methode gauss-seidel
+// on suppose que A est une matrice carre inversible 
+
+Programme methode-gauss-seidel
+const max=100
+Var A:tableau[1..max,1..max]
+	x :tableau[1..max] réel
+	b:tableau[1..max] d'entiers
+	t,z,n,k:entier
+	epsilon,erreur:réel
+
+Debut
+
+//Procedure pour initialiser de la matrice A , le vecteur b, x à 0
+
+Procedure Initialisation(E, n: entier;E/S A:tableau[1..max,1..max] d'entiers, x:tableau[1..max] réel,b:tableau[1..max] d'entiers)
+Var i,j,k : entier
+Debut
+Pour i <- 1 jusqu'à n Faire 
+	Pour j <- 1 jusqu'à n Faire
+		ecrire('saisir le coeff i,j de la matrice A')
+		lire(A[i,j])
+	FinPour
+FinPour
+	
+Pour k <- 1 jusqu'à n Faire
+	ecrire('saisir le coeff k du vecteur b')
+	lire(b[k])
+	x[k] <- 0.0
+FinPour
+
+Fin
+
+//vérification de dominance diagonale et  autres conditions
+
+// Fonction valeur-absolue
+Fonction abs(x: entier) : entier 
+Debut 
+si x<0
+	Alors retourner(-x)
+	sinon retourner(x)
+Finsi
+Fin
+
+Fonction abs-reel(x: réel) : réel
+Debut 
+si x<0
+	Alors retourner(-x)
+	sinon retourner(x)
+Finsi
+Fin
+
+// Fonction somme des valeurs absolues des éléments de la ligne(l) a partir de i a j
+Fonction somligne-abs(A:tableau[1..max,1..max] d'entiers; n,l,i,j: entier) : entier 
+Var res,k: entier
+Debut 
+res <- 0
+Pour k <- 1 jusqu'à n Faire
+	si k>=i et k<=j	
+		Alors res <- res+abs(A[l,k])
+	Finsi
+	
+Finpour 
+retourner(res)
+Fin
+
+Fonction verif-n(A:tableau[1..max,1..max] d'entiers; n: entier) : booléen
+Var res : booléen
+Debut
+res <- V
+si n <= 0 ou n > max alors
+    res <- F
+Finsi
+retourner(res) 
+
+Fin
+
+Fonction verif-A-d0(A:tableau[1..max,1..max] d'entiers; n: entier) : booléen
+Var res : booléen
+	i : entier
+Debut
+Pour i <- 1 jusqu'à n Faire
+    si A[i,i] = 0 alors
+        res <- F
+    Finsi
+FinPour
+retourner(res) 
+
+Fin
+
+
+Fonction veri-dominance-d(A:tableau[1..max,1..max] d'entiers; n: entier) : booléen
+Var sommeI,i: entier 
+	res : booléen
+
+Debut
+res <- V
+Pour i <- 1 jusqu'à n Faire
+	sommeI <- somligne-abs(A,n,i,1,i-1)+somligne-abs(A,n,i,i+1,n)
+
+	si abs(A[i,i])<sommeI
+		alors res <- F
+	Finsi
+
+FinPour
+retourner(res)
+Fin
+
+
+Fonction diff-vec-abs(y,x : tableau[1..max] réels,n: entiers) : tableau[1..max] réels
+Var i: entier 
+	res : tableau[1..max] réel
+	
+Debut
+
+Pour i <- 1 jusqu'à n Faire
+	res[i] <- abs-reel(y[i]-x[i])
+FinPour
+retourner(res)
+Fin
+
+Fonction max-vect-reel(a:tableau[1..max] réels,n:entier) : réel
+Var i:entier
+	max: réel
+
+Debut
+max <- a[1]
+Pour i <- 2 jusqu'à n Faire 
+	si max<=a[i]
+		Alors max <- a[i]
+	Finsi 
+	
+FinPour
+retourner(max)
+Fin
+
+	
+
+
+
+
+Procedure Gauss-seidel(E: A:tableau[1..max,1..max] d'entiers; b:tableau[1..max] d'entiers; k,n: entier ; E/S: x: tableau[1..max] réels, erreur:réel)
+Var i,j,m,a,l:entier
+	y: tableau[1..max] réels
+
+Debut
+erreur <- epsilon+1
+Pour i <-1 jusqu'à k Faire 
+	si erreur > epsilon
+		Alors 
+			Pour j <- 1 jusqu'à n Faire 
+				y[j] <- b[j]
+		
+				Pour m <- 1 jusqu'à j-1 Faire 
+					y[j] <- y[j]+ A[j,m] * y[m]
+		
+				FinPour
+		
+				Pour a <- j+1 jusqu'à n Faire 
+					y[j] <- y[j]+ A[j,a] * y[a]
+			
+				FinPour
+				y[j] <- y[j] / A[j,j]
+		
+			FinPour
+			erreur <- max-vect-reel(diff-vec-abs(y,x,n),n)
+			Pour l <- 1 jusqu'à n Faire 
+				x[l] <- y[l]
+			FinPour
+	Finsi
+	
+FinPour
+
+
+Fin
+
+
+ecrire('saisir la taille de la matrice A , un entier')
+lire(n)
+Initialisation(n,A,x,b)
+
+
+si veri-dominance-d(A,n) et verif-n(A,n) et verif-A-d0(A,n)
+	Alors 
+		ecrire('saisir le nombre d'itération')
+		lire(k)
+		Gauss-seidel(A,b,k,n,erreur,x)
+
+		// affichage de la solution et et des erreurs
+		ecrire(' la solution x est :')
+
+		Pour z<-1 jusqu'à n Faire 
+			ecrire(x[z])
+			ecrire(' ')
+		FinPour
+
+		ecrire(' les erreur est :')
+		ecrire(erreur)
+	
+	sinon si !(veri-dominance-d(A,n))
+		Alors ecrire('Erreur : La matrice A n\'est pas strictement dominante.')
+	
+	sinon si !(verif-n(A,n))
+		Alors ecrire('Erreur : Taille de la matrice invalide.')
+	
+	sinon si !(verif-A-d0(A,n))
+		Alors ecrire('Erreur : Un élément diagonal de A est nul, la matrice n\'est pas inversible.')
+		
+	
+Finsi
+
+
+
+
+
+
+
