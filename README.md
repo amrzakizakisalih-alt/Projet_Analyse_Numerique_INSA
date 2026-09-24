@@ -56,7 +56,9 @@ Two distinct algorithmic formulations are implemented and evaluated across scien
 
 *Requires a standard Fortran compiler such as gfortran*
 
-**Compile the programs**:
+---
+
+## Compile the programs:
 
 ### Compile Program A (Single Precision)
     gfortran -g GaussSeidelA.f -o GS_A
