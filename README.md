@@ -29,7 +29,7 @@ Two distinct algorithmic formulations are implemented and evaluated across scien
 
 ## Repository Structure
 
-    ```text
+    
     ├── Rapport_projet_1_MMSN.pdf    # Full technical report (INSA Rouen)
     ├── codesA/                       # Matrix implementations (X_{k+1} = F*X_k + G)
     │   ├── code gauss seidel pythonA.py
@@ -46,7 +46,7 @@ Two distinct algorithmic formulations are implemented and evaluated across scien
 
 ### Python Setup
 
-Requires Python 3 and scientific computing packages:
+*Requires Python 3 and scientific computing packages*
 
 **To run the matrix implementation**:
     
@@ -54,7 +54,7 @@ Requires Python 3 and scientific computing packages:
 
 ### Fortran Setup
 
-Requires a standard Fortran compiler such as gfortran.
+*Requires a standard Fortran compiler such as gfortran*
 
 **Compile the programs**:
 
@@ -73,6 +73,8 @@ Requires a standard Fortran compiler such as gfortran.
 ---
 ## Authors & Acknowledgments
 
-Mouad Sheradj Drissi
-Amr Zaki Salih
-Academic Advisor: Mr. J.G. Caputo (INSA Rouen Normandie)
+**Mouad Sheradj Drissi**
+
+**Amr Zaki Salih**
+
+Academic Advisor: **Mr. J.G. Caputo** (INSA Rouen Normandie)
